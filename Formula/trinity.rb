@@ -10,7 +10,7 @@ class Trinity < Formula
   on_macos do
     if Hardware::CPU.intel?
       url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/trinity_1.8.0_darwin_amd64.tar.gz"
-      sha256 "522f4306d0ecdf0848e247ecc600bc47ac255c03faccfb2c689a7416cca17c54"
+      sha256 "fe3240a3efb9da111aa87bb90bfa8d68ef02db9be1f380cf6dc0c1130f6be69f"
 
       define_method(:install) do
         bin.install "trinity"
@@ -18,7 +18,7 @@ class Trinity < Formula
     end
     if Hardware::CPU.arm?
       url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/trinity_1.8.0_darwin_arm64.tar.gz"
-      sha256 "110eae1b16ee5eb8aec56e9f7d6202e503e7d27452234e6506e294bed97bdb3d"
+      sha256 "a2b9e263d40fdccdee2ce663f3cf8731d02dfcecb0c6ffa29d3311cd976cc9e7"
 
       define_method(:install) do
         bin.install "trinity"
@@ -29,14 +29,14 @@ class Trinity < Formula
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
       url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/trinity_1.8.0_linux_amd64.tar.gz"
-      sha256 "6753c3658c9c8daf910f38b7f71715c11bac32391b8f668616c6eb3745e5c4d1"
+      sha256 "dfd7e21f10ef3b0a39c49bd14cb56eed2e6ed280beea71af38ef9d7020d97cd9"
       define_method(:install) do
         bin.install "trinity"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
       url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/trinity_1.8.0_linux_arm64.tar.gz"
-      sha256 "dfab4bb84e77bb849e643a4f42882607662f67834519d925fbee79ef1a328aea"
+      sha256 "50f5cbdf011830f269e3f06fe654d2c63a88f5713f3943889737ccb8b2a75a37"
       define_method(:install) do
         bin.install "trinity"
       end
