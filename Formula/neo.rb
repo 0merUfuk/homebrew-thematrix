@@ -10,7 +10,7 @@ class Neo < Formula
   on_macos do
     if Hardware::CPU.intel?
       url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/neo_1.8.0_darwin_amd64.tar.gz"
-      sha256 "ab1f7de9a49b566ca19362acefcc8afeaceb772fe427b372b08037c2a32fd64f"
+      sha256 "8aff3781d18260d45b8a29dd11d8ed069b9dedaee249759cd70e50efa490430c"
 
       define_method(:install) do
         bin.install "neo"
@@ -18,7 +18,7 @@ class Neo < Formula
     end
     if Hardware::CPU.arm?
       url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/neo_1.8.0_darwin_arm64.tar.gz"
-      sha256 "c00e561dd7edecb1d8abd05a97af0fbb4d958bf5157900b740a6a008239983be"
+      sha256 "092e53d7b73be49b0128c4c28c8cb8d0da30b8f89a955e06f7c2f89fbb81c1a5"
 
       define_method(:install) do
         bin.install "neo"
@@ -29,14 +29,14 @@ class Neo < Formula
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
       url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/neo_1.8.0_linux_amd64.tar.gz"
-      sha256 "06404c267fc1664f734a920adcff06e8968f1f139a6ba829b79f1fc09a4c8b81"
+      sha256 "ac93b0c02518796053ff584c2b3fce81727c033d6b997577bfa4d053436a061f"
       define_method(:install) do
         bin.install "neo"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
       url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/neo_1.8.0_linux_arm64.tar.gz"
-      sha256 "eb6582ff1cfbb2dba780f23f21743aeb0b499271a1f9351f7fddb25049fc3ded"
+      sha256 "a9b923e3d06c216664c82b5b3ef7ba5dd4f00dfad973e9846967f66552f57ba5"
       define_method(:install) do
         bin.install "neo"
       end
