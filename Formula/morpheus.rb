@@ -10,7 +10,7 @@ class Morpheus < Formula
   on_macos do
     if Hardware::CPU.intel?
       url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/morpheus_1.8.0_darwin_amd64.tar.gz"
-      sha256 "bd038a4d185aa479895be63e62bc7aafed561ddab927126d79e53edd6b21b199"
+      sha256 "7c369c3b05293379ebc28a909546a443bbf8bd6b14948d653ce8c2cc7b19f8dd"
 
       define_method(:install) do
         bin.install "morpheus"
@@ -18,7 +18,7 @@ class Morpheus < Formula
     end
     if Hardware::CPU.arm?
       url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/morpheus_1.8.0_darwin_arm64.tar.gz"
-      sha256 "da7d83d2323138adb83c45ab0eb6f2f0412374a29b7932d81aa9db63a46c58ed"
+      sha256 "5cdda6ce40e839cd326f8acfca3498c14162f0c458b917ae05a54a0863c3e181"
 
       define_method(:install) do
         bin.install "morpheus"
@@ -29,14 +29,14 @@ class Morpheus < Formula
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
       url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/morpheus_1.8.0_linux_amd64.tar.gz"
-      sha256 "ff0d98e91a6f7b1a10273ca1ed08cdede37d3db84a1bc0fe17379c6be4276c1a"
+      sha256 "7cb015a00f1e6805398361d58ae737b087f4f9569386e9e548a7f999a5bcbc3f"
       define_method(:install) do
         bin.install "morpheus"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
       url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/morpheus_1.8.0_linux_arm64.tar.gz"
-      sha256 "f387f47ecad78f63d5bac635b32bf2037ed7c257dffd2898df501eda96854642"
+      sha256 "66112cebc4a03aa60b09cff5f3c7dbfb9c38f32cffd13c85b82012fc7d93a599"
       define_method(:install) do
         bin.install "morpheus"
       end
