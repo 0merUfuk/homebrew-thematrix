@@ -5,20 +5,20 @@
 class Oracle < Formula
   desc "Knowledge synthesis engine for any tech stack"
   homepage "https://github.com/0merUfuk/the-matrix"
-  version "1.8.0"
+  version "1.8.1"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/oracle_1.8.0_darwin_amd64.tar.gz"
-      sha256 "38e78108f8ea691c832d9b3f7dc5b1c5408573e661127afc6cfcbe54e3d3895c"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.1/oracle_1.8.1_darwin_amd64.tar.gz"
+      sha256 "179bfc10ed579c9b259a5c0eb139a742ee3d0f4df9b38f4cf383b4c362860e20"
 
       define_method(:install) do
         bin.install "oracle"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/oracle_1.8.0_darwin_arm64.tar.gz"
-      sha256 "efef435c6a4e17ab052f2787ca6d3ba8e5e63aa3047e3b47423230bbd5e571b5"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.1/oracle_1.8.1_darwin_arm64.tar.gz"
+      sha256 "d33bbd610888ef95af4c7ab928db650b266ca4589de9489663b992f41c03ea35"
 
       define_method(:install) do
         bin.install "oracle"
@@ -28,15 +28,15 @@ class Oracle < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/oracle_1.8.0_linux_amd64.tar.gz"
-      sha256 "b78be4de87fc7794bc33c641131dbfb7d007aae77f2d9660675940ae736ec8ac"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.1/oracle_1.8.1_linux_amd64.tar.gz"
+      sha256 "b93b75bc6d6961cc93328f4053d102c9d79970ba336afcc55a191e1f906d8b8b"
       define_method(:install) do
         bin.install "oracle"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/oracle_1.8.0_linux_arm64.tar.gz"
-      sha256 "367cdf14548c8ab0067cddef27915d8f6b0dd98873347ca6839c13c55fb4139f"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.1/oracle_1.8.1_linux_arm64.tar.gz"
+      sha256 "fb44a4ebdc0066bebf365a79a6e975af9fcad12fe81cb2e912b082dbcce9d274"
       define_method(:install) do
         bin.install "oracle"
       end
