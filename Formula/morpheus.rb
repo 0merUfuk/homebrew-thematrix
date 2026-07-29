@@ -5,20 +5,20 @@
 class Morpheus < Formula
   desc "Autonomous development infrastructure generator"
   homepage "https://github.com/0merUfuk/the-matrix"
-  version "1.8.0"
+  version "1.8.1"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/morpheus_1.8.0_darwin_amd64.tar.gz"
-      sha256 "7c369c3b05293379ebc28a909546a443bbf8bd6b14948d653ce8c2cc7b19f8dd"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.1/morpheus_1.8.1_darwin_amd64.tar.gz"
+      sha256 "2ac23ea4ca6ecdd91efd1defd1e1e3eadeb589c63d5603ea8b8249aeb9478429"
 
       define_method(:install) do
         bin.install "morpheus"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/morpheus_1.8.0_darwin_arm64.tar.gz"
-      sha256 "5cdda6ce40e839cd326f8acfca3498c14162f0c458b917ae05a54a0863c3e181"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.1/morpheus_1.8.1_darwin_arm64.tar.gz"
+      sha256 "dd61e96607000f0b554d1db2081322085636f21270a04158605822f671bc1b00"
 
       define_method(:install) do
         bin.install "morpheus"
@@ -28,15 +28,15 @@ class Morpheus < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/morpheus_1.8.0_linux_amd64.tar.gz"
-      sha256 "7cb015a00f1e6805398361d58ae737b087f4f9569386e9e548a7f999a5bcbc3f"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.1/morpheus_1.8.1_linux_amd64.tar.gz"
+      sha256 "f72172f359ecfe9b3bd10c36efdfa4b216504d203d164bc79d774a1294cf5f8e"
       define_method(:install) do
         bin.install "morpheus"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.0/morpheus_1.8.0_linux_arm64.tar.gz"
-      sha256 "66112cebc4a03aa60b09cff5f3c7dbfb9c38f32cffd13c85b82012fc7d93a599"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.1/morpheus_1.8.1_linux_arm64.tar.gz"
+      sha256 "c978e0668c5a927f45529060f2cd75c085ed0851895d6a00fe0092bea0024934"
       define_method(:install) do
         bin.install "morpheus"
       end
