@@ -5,20 +5,20 @@
 class Trinity < Formula
   desc "Maintenance runtime for Claude Code agent ecosystems"
   homepage "https://github.com/0merUfuk/the-matrix"
-  version "1.8.1"
+  version "1.8.2"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.1/trinity_1.8.1_darwin_amd64.tar.gz"
-      sha256 "672cc4cb984183e449784aef3213cab90a62392866572d511c8a9f3b2d63ddeb"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.2/trinity_1.8.2_darwin_amd64.tar.gz"
+      sha256 "6dc276fd0d93f94b79bef3fc4ca3e51ab86529333f30105c29af00a11e2de95d"
 
       define_method(:install) do
         bin.install "trinity"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.1/trinity_1.8.1_darwin_arm64.tar.gz"
-      sha256 "f665e3d6bfce669c2ab3ffe103f2553d46cfb6147bd54b217c718eb0d264a339"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.2/trinity_1.8.2_darwin_arm64.tar.gz"
+      sha256 "8d1c8f44dc031092e665fcd6c154d1aed98035d82f7acb4716e6316a43b16408"
 
       define_method(:install) do
         bin.install "trinity"
@@ -28,15 +28,15 @@ class Trinity < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.1/trinity_1.8.1_linux_amd64.tar.gz"
-      sha256 "41774b38ea38e370cd95f62afec0c3eb71ad1a1b28d9ddf54f04746cc21d24b4"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.2/trinity_1.8.2_linux_amd64.tar.gz"
+      sha256 "1e021d8afeefcd50ee2b13ed7927efc4bd8dfaf16c0c39c53f9ba19b6ff65576"
       define_method(:install) do
         bin.install "trinity"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.1/trinity_1.8.1_linux_arm64.tar.gz"
-      sha256 "114ef415902fe8b341876e226e8ba8beb1031aadf5ccf72c0cb1db367e751ceb"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.2/trinity_1.8.2_linux_arm64.tar.gz"
+      sha256 "7a20e7bf6c3c7c63f9e913f820cabb97937da26b9a62b715a713a306afa1ea6f"
       define_method(:install) do
         bin.install "trinity"
       end
