@@ -5,20 +5,20 @@
 class Neo < Formula
   desc "Meta-CLI orchestrator for the-matrix agent ecosystem"
   homepage "https://github.com/0merUfuk/the-matrix"
-  version "1.8.1"
+  version "1.8.2"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.1/neo_1.8.1_darwin_amd64.tar.gz"
-      sha256 "4ed98bbce30473e1d0c3c7e559c81d044ee365aeef9286b5130f88fa0f68f00d"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.2/neo_1.8.2_darwin_amd64.tar.gz"
+      sha256 "6b9b75ad412fbc9db702fae826898e7970cfc482a00e718fe01480acc884ae49"
 
       define_method(:install) do
         bin.install "neo"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.1/neo_1.8.1_darwin_arm64.tar.gz"
-      sha256 "de4730ae7ffee1945a864c12505528588fba6e84d444c0a9f0790681c0b8707d"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.2/neo_1.8.2_darwin_arm64.tar.gz"
+      sha256 "83ba72db340eb4cf39adf8c17101a4a6ac672791b3db69a1b4d3b3314ebeb2a6"
 
       define_method(:install) do
         bin.install "neo"
@@ -28,15 +28,15 @@ class Neo < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.1/neo_1.8.1_linux_amd64.tar.gz"
-      sha256 "4b6b26b84392d8cd346fc04300b6a2ff5327f4587e00972dc698c467cb5f73ac"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.2/neo_1.8.2_linux_amd64.tar.gz"
+      sha256 "1b5f185f87e006ea68d962401a0e50a09f0fd1c7571e1c43fd9b9f6f0045ae6e"
       define_method(:install) do
         bin.install "neo"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.1/neo_1.8.1_linux_arm64.tar.gz"
-      sha256 "c283b2946b5dab13232926b925e500ca161b1e479d1399dd11d2767a64f0e5f3"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.2/neo_1.8.2_linux_arm64.tar.gz"
+      sha256 "c87bcc4b81ff64ecb22c3d37cf7041b51d59806c4795b43b97655230917dee9c"
       define_method(:install) do
         bin.install "neo"
       end
