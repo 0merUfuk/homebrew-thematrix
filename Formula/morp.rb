@@ -5,20 +5,20 @@
 class Morp < Formula
   desc "Autonomous development infrastructure generator"
   homepage "https://github.com/0merUfuk/the-matrix"
-  version "1.8.2"
+  version "1.9.0"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.2/morp_1.8.2_darwin_amd64.tar.gz"
-      sha256 "439438f39c39658184fec86dc67c596b9b168862da57b926d6cdcfffb03f4376"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.9.0/morp_1.9.0_darwin_amd64.tar.gz"
+      sha256 "1b6b15247a38ade04c0a1725ac10c4c819f2bdead9722579db29b1e906b084db"
 
       define_method(:install) do
         bin.install "morp"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.2/morp_1.8.2_darwin_arm64.tar.gz"
-      sha256 "8bcbc2878bc91f9167e8dcc7d761894706f61b9e036aca0d1a6c4b808fc1e356"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.9.0/morp_1.9.0_darwin_arm64.tar.gz"
+      sha256 "09122821990dd45f35d90fd84da1bde51e4b1f641686f209afe12861fc4b6d77"
 
       define_method(:install) do
         bin.install "morp"
@@ -28,15 +28,15 @@ class Morp < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.2/morp_1.8.2_linux_amd64.tar.gz"
-      sha256 "135fe7b4c53e8501f79e3d5f67bddab3b4f8f8be7f3402494953dca4642730f4"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.9.0/morp_1.9.0_linux_amd64.tar.gz"
+      sha256 "19069ed8f0fef0ef8b9d25e3799f19a00299a36d91ef357bc76520f3f7ef4c9e"
       define_method(:install) do
         bin.install "morp"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.8.2/morp_1.8.2_linux_arm64.tar.gz"
-      sha256 "c2386a994a93691166a2322b1eac22797205023e0eb88616204d1b96eb70bb15"
+      url "https://github.com/0merUfuk/the-matrix/releases/download/v1.9.0/morp_1.9.0_linux_arm64.tar.gz"
+      sha256 "b101b39ca8398fca52eb10daf1916b03a10b334f8a7960eef43e1a9dc99b6d59"
       define_method(:install) do
         bin.install "morp"
       end
