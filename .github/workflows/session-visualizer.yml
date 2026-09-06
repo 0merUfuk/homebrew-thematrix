@@ -24,13 +24,14 @@ jobs:
           HOMEBREW_NO_AUTO_UPDATE: '1'
           HOMEBREW_NO_INSTALL_CLEANUP: '1'
         run: |
+          set -x
           if [ "$RUNNER_OS" = Linux ]; then
             eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
           fi
           brew tap 0merUfuk/thematrix
           # Test this checked-out formula, including pull-request changes.
           cp Formula/session-visualizer.rb "$(brew --repository 0merUfuk/thematrix)/Formula/session-visualizer.rb"
-          brew install 0merUfuk/thematrix/session-visualizer
+          brew install --verbose 0merUfuk/thematrix/session-visualizer
           session-visualizer --version
           brew test 0merUfuk/thematrix/session-visualizer
           brew reinstall 0merUfuk/thematrix/session-visualizer
