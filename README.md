@@ -35,6 +35,13 @@ and `brew upgrade 0merUfuk/thematrix/session-visualizer`; remove with `brew unin
 Application state and backups survive uninstall. The project release procedure
 updates the formula from checksummed, attested GitHub release assets.
 
+### Platform note
+
+Current Homebrew no longer supplies prebuilt bottles for Intel macOS. It may
+compile dependencies such as OpenSSL during installation, making a first install
+considerably slower. The application is tested on Intel macOS, but the quickest
+Homebrew installation experience is on Apple Silicon and Linux x86-64.
+
 ## Skuggsja
 
 [Skuggsja](https://github.com/0merUfuk/skuggsja) is a local retrospective for AI coding-agent history. Its prebuilt macOS/Linux formula is pending the first stable upstream release. Once available, install it with `brew install 0merUfuk/thematrix/skuggsja`.
