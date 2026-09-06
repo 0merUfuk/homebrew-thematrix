@@ -3,9 +3,9 @@ class SessionVisualizer < Formula
 
   desc "Offline, evidence-aware continuity for local agent sessions and Git"
   homepage "https://github.com/0merUfuk/session-visualizer"
-  url "https://github.com/0merUfuk/session-visualizer/releases/download/v0.1.0/session_visualizer-0.1.0-py3-none-any.whl", using: :nounzip
-  version "0.1.0"
-  sha256 "cbcebf40ba24275cea324d7d684db1275c5a7175d4299fbc2aa0da2852f76334"
+  url "https://github.com/0merUfuk/session-visualizer/releases/download/v0.1.1/session_visualizer-0.1.1-py3-none-any.whl", using: :nounzip
+  version "0.1.1"
+  sha256 "b6feb1ac6a152b0bb3f9f2edd6b0ef59db08f8931fbaa6265ca76108f4fa18c1"
   license "MIT"
 
   depends_on "git"
@@ -16,7 +16,7 @@ class SessionVisualizer < Formula
     # it directly avoids an unpinned build-backend download during installation.
     ENV["PIP_NO_INDEX"] = "1"
     venv = virtualenv_create(libexec, "python3.14", system_site_packages: false)
-    venv.pip_install_and_link(buildpath/"session_visualizer-0.1.0-py3-none-any.whl", build_isolation: false)
+    venv.pip_install_and_link(buildpath/"session_visualizer-0.1.1-py3-none-any.whl", build_isolation: false)
   end
 
   test do
