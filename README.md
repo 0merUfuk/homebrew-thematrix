@@ -34,3 +34,9 @@ Homebrew manages its Python runtime and environment. Update with `brew update`
 and `brew upgrade 0merUfuk/thematrix/session-visualizer`; remove with `brew uninstall --force 0merUfuk/thematrix/session-visualizer`.
 Application state and backups survive uninstall. The project release procedure
 updates the formula from checksummed, attested GitHub release assets.
+
+## Skuggsja
+
+[Skuggsja](https://github.com/0merUfuk/skuggsja) is a local retrospective for AI coding-agent history. Its prebuilt macOS/Linux formula is pending the first stable upstream release. Once available, install it with `brew install 0merUfuk/thematrix/skuggsja`.
+
+The Skuggsja update workflow checks daily or on manual dispatch, verifies the release formula's GitHub attestation and source tag, and refuses version rollback. It uses this tap's own workflow token; no cross-repository secret is required. Existing formulas retain their release process.
