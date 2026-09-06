@@ -17,6 +17,8 @@ jobs:
     if: github.repository == '0merUfuk/homebrew-thematrix' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    outputs:
+      version: ${{ steps.formula.outputs.version }}
     permissions:
       contents: write
     steps:
@@ -39,3 +41,82 @@ jobs:
           git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
             commit -m "chore(skuggsja): update to ${FORMULA_VERSION}"
           git push origin HEAD:refs/heads/main
+
+  install:
+    name: Homebrew lifecycle (${{ matrix.os }})
+    needs: update
+    if: needs.update.outputs.version != ''
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            platform: linux
+            arch: x64
+          - os: macos-15
+            platform: darwin
+            arch: arm64
+          - os: macos-15-intel
+            platform: darwin
+            arch: x64
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: bash
+    env:
+      FORMULA: 0merUfuk/thematrix/skuggsja
+      EXPECTED_VERSION: ${{ needs.update.outputs.version }}
+      EXPECTED_PLATFORM: ${{ matrix.platform }}
+      EXPECTED_ARCH: ${{ matrix.arch }}
+      HOMEBREW_NO_ANALYTICS: "1"
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: 0merUfuk/skuggsja
+          ref: v${{ needs.update.outputs.version }}
+          path: source
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22.23.1
+      - name: Confirm runner coverage and expose preinstalled Linux Homebrew
+        run: |
+          node -e 'const a = require("node:assert/strict"); a.equal(process.platform, process.env.EXPECTED_PLATFORM); a.equal(process.arch, process.env.EXPECTED_ARCH);'
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            echo /home/linuxbrew/.linuxbrew/bin >> "$GITHUB_PATH"
+            echo /home/linuxbrew/.linuxbrew/sbin >> "$GITHUB_PATH"
+          fi
+      - name: Update Homebrew and add the public tap
+        run: |
+          brew update
+          brew tap 0merUfuk/thematrix
+      - name: Install the released formula and run its Homebrew test
+        run: |
+          brew install --formula "$FORMULA"
+          test "$(skuggsja version)" = "skuggsja $EXPECTED_VERSION"
+          brew test --verbose "$FORMULA"
+      - name: Exercise the installed command with synthetic sources
+        run: |
+          installed_binary=$(node -p 'require("node:fs").realpathSync(process.argv[1])' "$(brew --prefix "$FORMULA")/bin/skuggsja")
+          node source/scripts/verify-install.cjs "$installed_binary" "$EXPECTED_VERSION"
+      - name: Verify current-version upgrade and actual reinstall
+        run: |
+          brew upgrade --formula "$FORMULA"
+          test "$(skuggsja version)" = "skuggsja $EXPECTED_VERSION"
+          brew reinstall --formula "$FORMULA"
+          test "$(skuggsja version)" = "skuggsja $EXPECTED_VERSION"
+          brew test --verbose "$FORMULA"
+      - name: Uninstall the formula and verify removal
+        run: |
+          linked_binary="$(brew --prefix)/bin/skuggsja"
+          brew uninstall --force --formula "$FORMULA"
+          test ! -e "$linked_binary"
+          test ! -L "$linked_binary"
+          if brew list --versions --formula "$FORMULA"; then
+            echo "Skuggsja still appears in the installed Homebrew formulas" >&2
+            exit 1
+          fi
