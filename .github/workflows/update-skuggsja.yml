@@ -1,0 +1,41 @@
+name: Update Skuggsja
+
+on:
+  schedule:
+    - cron: "23 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: update-skuggsja
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: github.repository == '0merUfuk/homebrew-thematrix' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+      - name: Test update guards
+        run: python3 .github/scripts/update_skuggsja_test.py
+      - name: Verify the latest stable upstream formula
+        id: formula
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/update_skuggsja.py
+      - name: Commit only the verified Skuggsja formula
+        if: steps.formula.outputs.changed == 'true'
+        env:
+          FORMULA_VERSION: ${{ steps.formula.outputs.version }}
+        run: |
+          git add -- Formula/skuggsja.rb
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit -m "chore(skuggsja): update to ${FORMULA_VERSION}"
+          git push origin HEAD:refs/heads/main
