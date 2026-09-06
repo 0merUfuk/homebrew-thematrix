@@ -15,7 +15,9 @@ UPSTREAM = "0merUfuk/skuggsja"
 
 
 def formula(version, extra=""):
-    return 'class Skuggsja < Formula\n  version "' + version + '"\n' + extra + 'end\n'
+    urls = "".join(f'  url "https://github.com/{UPSTREAM}/releases/download/v{version}/skuggsja_{version}_{system}_{architecture}.tar.gz"\n'
+                   for system in ("darwin", "linux") for architecture in ("arm64", "amd64"))
+    return "# Skuggsja release version: " + version + "\nclass Skuggsja < Formula\n" + urls + extra + "end\n"
 
 
 FAKE_GH = r"""import json
@@ -182,6 +184,34 @@ class UpdateTests(unittest.TestCase):
         self.assertNotEqual(result["exit"], 0)
         self.assertEqual(result["content"], formula("1.0.0"))
         self.assertEqual(result["calls"][-1][:2], ["attestation", "verify"])
+
+    def test_release_marker_must_be_present_unique_and_canonical(self):
+        valid = formula("1.2.3")
+        for downloaded in [valid.replace("# Skuggsja release version: 1.2.3\n", ""),
+                           "# Skuggsja release version: 1.2.3\n" + valid,
+                           valid.replace("# Skuggsja release version: 1.2.3", "# Skuggsja release version: 01.2.3")]:
+            with self.subTest(downloaded=downloaded):
+                result = self.run_case(current=formula("1.0.0"), downloaded=downloaded)
+                self.assertNotEqual(result["exit"], 0)
+                self.assertEqual(result["content"], formula("1.0.0"))
+
+    def test_release_urls_must_match_marker_and_all_four_platforms(self):
+        valid = formula("1.2.3")
+        for downloaded in [valid.replace("download/v1.2.3/", "download/v9.0.0/", 1),
+                           valid.replace("skuggsja_1.2.3_linux_amd64", "skuggsja_9.0.0_linux_amd64"),
+                           valid.replace("skuggsja_1.2.3_linux_amd64", "skuggsja_1.2.3_linux_arm64"),
+                           valid.replace("https://github.com/", "https://example.invalid/", 1)]:
+            with self.subTest(downloaded=downloaded):
+                result = self.run_case(current=formula("1.0.0"), downloaded=downloaded)
+                self.assertNotEqual(result["exit"], 0)
+                self.assertEqual(result["content"], formula("1.0.0"))
+                self.assertIn("download URLs must match", result["stderr"])
+
+    def test_explicit_ruby_version_is_refused(self):
+        result = self.run_case(current=formula("1.0.0"), downloaded=formula("1.2.3", '  version "1.2.3"\n'))
+        self.assertNotEqual(result["exit"], 0)
+        self.assertEqual(result["content"], formula("1.0.0"))
+        self.assertIn("must be inferred", result["stderr"])
 
     def test_same_version_is_idempotent(self):
         result = self.run_case(current=formula("1.2.3"))
