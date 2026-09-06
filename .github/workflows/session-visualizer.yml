@@ -34,4 +34,4 @@ jobs:
           session-visualizer --version
           brew test 0merUfuk/thematrix/session-visualizer
           brew reinstall 0merUfuk/thematrix/session-visualizer
-          brew uninstall 0merUfuk/thematrix/session-visualizer
+          brew uninstall --force 0merUfuk/thematrix/session-visualizer

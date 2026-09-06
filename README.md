@@ -31,6 +31,6 @@ session-visualizer --help
 ```
 
 Homebrew manages its Python runtime and environment. Update with `brew update`
-and `brew upgrade session-visualizer`; remove with `brew uninstall session-visualizer`.
+and `brew upgrade 0merUfuk/thematrix/session-visualizer`; remove with `brew uninstall --force 0merUfuk/thematrix/session-visualizer`.
 Application state and backups survive uninstall. The project release procedure
 updates the formula from checksummed, attested GitHub release assets.
