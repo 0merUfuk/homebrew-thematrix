@@ -61,10 +61,18 @@ def formula_version(content):
         text = content.decode("utf-8")
     except UnicodeError as error:
         raise UpdateError("Formula is not UTF-8 text") from error
-    versions = re.findall(r'^  version "(' + STABLE + r')"$', text, re.MULTILINE)
-    if len(versions) != 1:
-        raise UpdateError("Formula must declare exactly one canonical stable version")
-    return versions[0]
+    versions = re.findall(r"^# Skuggsja release version: (.*)$", text, re.MULTILINE)
+    if len(versions) != 1 or not re.fullmatch(STABLE, versions[0]):
+        raise UpdateError("Formula must have exactly one canonical stable release-version comment")
+    version = versions[0]
+    if re.search(r"^[ \t]*version\b", text, re.MULTILINE):
+        raise UpdateError("Formula version must be inferred from its release URLs")
+    urls = re.findall(r'^[ \t]*url "([^"\r\n]+)"$', text, re.MULTILINE)
+    expected = {f"https://github.com/{UPSTREAM}/releases/download/v{version}/skuggsja_{version}_{system}_{architecture}.tar.gz"
+                for system in ("darwin", "linux") for architecture in ("arm64", "amd64")}
+    if len(urls) != 4 or set(urls) != expected:
+        raise UpdateError("Formula download URLs must match its release-version comment on all four platforms")
+    return version
 
 
 def output(changed, version=""):
