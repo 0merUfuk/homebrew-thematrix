@@ -41,6 +41,8 @@ jobs:
           brew test 0merUfuk/thematrix/rifja
           brew reinstall 0merUfuk/thematrix/rifja
           brew uninstall --force 0merUfuk/thematrix/rifja
+          # Alias resolution requires explicit trust in its canonical target.
+          brew trust --formula 0merUfuk/thematrix/rifja
           brew install 0merUfuk/thematrix/session-visualizer
           rifja --version
           brew uninstall --force 0merUfuk/thematrix/rifja
