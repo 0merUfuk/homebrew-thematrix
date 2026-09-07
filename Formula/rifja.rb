@@ -3,9 +3,9 @@ class Rifja < Formula
 
   desc "Offline, evidence-aware continuity for local agent sessions and Git"
   homepage "https://github.com/0merUfuk/rifja"
-  url "https://github.com/0merUfuk/rifja/releases/download/v0.2.0/rifja-0.2.0-py3-none-any.whl", using: :nounzip
-  version "0.2.0"
-  sha256 "0314997447f0d4357bde9f5f195045b239e9b39c29de738ae2c4a5b68030ed95"
+  url "https://github.com/0merUfuk/rifja/releases/download/v0.2.1/rifja-0.2.1-py3-none-any.whl", using: :nounzip
+  version "0.2.1"
+  sha256 "3bfeedeeed8369d8bc3cecd27b565fd8ccc21275103f6424323448d34ea82e7a"
   license "MIT"
 
   depends_on "git"
@@ -16,7 +16,7 @@ class Rifja < Formula
     # it directly avoids an unpinned build-backend download during installation.
     ENV["PIP_NO_INDEX"] = "1"
     venv = virtualenv_create(libexec, "python3.14", system_site_packages: false)
-    venv.pip_install_and_link(buildpath/"rifja-0.2.0-py3-none-any.whl", build_isolation: false)
+    venv.pip_install_and_link(buildpath/"rifja-0.2.1-py3-none-any.whl", build_isolation: false)
   end
 
   test do
