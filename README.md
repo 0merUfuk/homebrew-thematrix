@@ -46,13 +46,34 @@ Homebrew installation experience is on Apple Silicon and Linux x86-64.
 
 ## Skuggsja
 
-[Skuggsja](https://github.com/0merUfuk/skuggsja) is a local, read-only retrospective for AI coding-agent history. The formula installs a prebuilt executable on macOS or Linux, for Intel/AMD and ARM64, with its UI and shell completions included. No Go, Python or Node.js runtime is needed.
+[Skuggsja](https://github.com/0merUfuk/skuggsja) has moved to its
+[dedicated Homebrew tap](https://github.com/0merUfuk/homebrew-skuggsja).
+New installations use:
 
 ```sh
-brew install 0merUfuk/thematrix/skuggsja
-skuggsja
+brew install 0merUfuk/skuggsja/skuggsja
 ```
 
-Update with `brew update` and `brew upgrade 0merUfuk/thematrix/skuggsja`; remove with `brew uninstall 0merUfuk/thematrix/skuggsja`. Uninstall leaves generated reports in place. See the [project documentation](https://github.com/0merUfuk/skuggsja#readme) for usage, source coverage and privacy boundaries.
+For an existing installation, run `brew update` and inspect
+`"$(brew --prefix skuggsja)/INSTALL_RECEIPT.json"`. The receipt's `source.tap`
+should be `0merufuk/skuggsja`. Homebrew can migrate receipts at the same version
+without replacing kegs when the destination tap is available and trusted;
+this is not guaranteed to complete on every installation.
 
-The Skuggsja update workflow checks daily or on manual dispatch, verifies the release formula's GitHub attestation and source tag, and refuses version rollback. It uses this tap's own workflow token; no cross-repository secret is required. Existing formulas retain their release process.
+If the receipt still names this tap, check `brew list --pinned` first. Preserve
+any Skuggsja pin and stop before reinstalling unless you deliberately choose
+to unpin. On Homebrew versions with tap trust, the explicit unpinned path is:
+
+```sh
+brew trust --formula 0merUfuk/skuggsja/skuggsja
+brew tap 0merUfuk/skuggsja
+brew reinstall 0merUfuk/skuggsja/skuggsja
+skuggsja version
+cat "$(brew --prefix skuggsja)/INSTALL_RECEIPT.json"
+```
+
+Reinstall selects the destination tap's current version. No uninstall is
+needed first. Keep The Matrix tap for its other tools; do not force-untap it.
+Generated reports and source histories remain in place. See the
+[project migration guide](https://github.com/0merUfuk/skuggsja#existing-the-matrix-tap-installations)
+for details and instructions matching your Homebrew version.
