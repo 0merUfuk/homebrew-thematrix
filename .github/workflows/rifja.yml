@@ -1,0 +1,46 @@
+name: Rifja install
+on:
+  push:
+    paths: ['Formula/rifja.rb', '.github/workflows/rifja.yml', 'formula_renames.json', 'Aliases/session-visualizer']
+  pull_request:
+    paths: ['Formula/rifja.rb', '.github/workflows/rifja.yml', 'formula_renames.json', 'Aliases/session-visualizer']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  install:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15, macos-15-intel]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Install and test the hosted release
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: '1'
+          HOMEBREW_NO_INSTALL_CLEANUP: '1'
+        run: |
+          if [ "$RUNNER_OS" = Linux ]; then
+            eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          fi
+          # Refresh the runner image's package manager before testing the public tap.
+          brew update
+          brew tap 0merUfuk/thematrix
+          # Test this checked-out formula, including pull-request changes.
+          cp Formula/rifja.rb "$(brew --repository 0merUfuk/thematrix)/Formula/rifja.rb"
+          cp formula_renames.json "$(brew --repository 0merUfuk/thematrix)/formula_renames.json"
+          mkdir -p "$(brew --repository 0merUfuk/thematrix)/Aliases"
+          ln -sfn ../Formula/rifja.rb "$(brew --repository 0merUfuk/thematrix)/Aliases/session-visualizer"
+          brew install --verbose 0merUfuk/thematrix/rifja
+          rifja --version
+          test "$(session-visualizer --version)" = "$(rifja --version)"
+          brew test 0merUfuk/thematrix/rifja
+          brew reinstall 0merUfuk/thematrix/rifja
+          brew uninstall --force 0merUfuk/thematrix/rifja
+          brew install 0merUfuk/thematrix/session-visualizer
+          rifja --version
+          brew uninstall --force 0merUfuk/thematrix/rifja

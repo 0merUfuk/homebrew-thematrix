@@ -1,11 +1,11 @@
-class SessionVisualizer < Formula
+class Rifja < Formula
   include Language::Python::Virtualenv
 
   desc "Offline, evidence-aware continuity for local agent sessions and Git"
-  homepage "https://github.com/0merUfuk/session-visualizer"
-  url "https://github.com/0merUfuk/session-visualizer/releases/download/v0.1.1/session_visualizer-0.1.1-py3-none-any.whl", using: :nounzip
-  version "0.1.1"
-  sha256 "b6feb1ac6a152b0bb3f9f2edd6b0ef59db08f8931fbaa6265ca76108f4fa18c1"
+  homepage "https://github.com/0merUfuk/rifja"
+  url "https://github.com/0merUfuk/rifja/releases/download/v0.2.0/rifja-0.2.0-py3-none-any.whl", using: :nounzip
+  version "0.2.0"
+  sha256 "0314997447f0d4357bde9f5f195045b239e9b39c29de738ae2c4a5b68030ed95"
   license "MIT"
 
   depends_on "git"
@@ -16,14 +16,14 @@ class SessionVisualizer < Formula
     # it directly avoids an unpinned build-backend download during installation.
     ENV["PIP_NO_INDEX"] = "1"
     venv = virtualenv_create(libexec, "python3.14", system_site_packages: false)
-    venv.pip_install_and_link(buildpath/"session_visualizer-0.1.1-py3-none-any.whl", build_isolation: false)
+    venv.pip_install_and_link(buildpath/"rifja-0.2.0-py3-none-any.whl", build_isolation: false)
   end
 
   test do
-    ENV["SESSION_VISUALIZER_HOME"] = (testpath/"state").to_s
-    assert_equal version.to_s, shell_output("#{bin}/session-visualizer --version").strip
-    system bin/"session-visualizer", "setup", "--timezone", "Europe/Istanbul"
-    system bin/"session-visualizer", "doctor"
+    ENV["RIFJA_HOME"] = (testpath/"state").to_s
+    assert_equal version.to_s, shell_output("#{bin}/rifja --version").strip
+    system bin/"rifja", "setup", "--timezone", "Europe/Istanbul"
+    system bin/"rifja", "doctor"
     system libexec/"bin/python", "-c", <<~PYTHON
       import sqlite3
       from compression import zstd

@@ -20,18 +20,20 @@ brew install neo morp oracle trinity
 
 The four the-matrix formulae are updated via [GoReleaser](https://goreleaser.com).
 
-## Session Visualizer
+## Rifja
 
-This tap also distributes [Session Visualizer](https://github.com/0merUfuk/session-visualizer),
+This tap also distributes [Rifja](https://github.com/0merUfuk/rifja),
 an offline CLI for resuming engineering work across agent sessions and Git.
 
 ```sh
-brew install 0merUfuk/thematrix/session-visualizer
-session-visualizer --help
+brew install 0merUfuk/thematrix/rifja
+rifja --help
 ```
 
 Homebrew manages its Python runtime and environment. Update with `brew update`
-and `brew upgrade 0merUfuk/thematrix/session-visualizer`; remove with `brew uninstall --force 0merUfuk/thematrix/session-visualizer`.
+and `brew upgrade 0merUfuk/thematrix/rifja`; remove with `brew uninstall --force 0merUfuk/thematrix/rifja`.
+Existing `session-visualizer` installations migrate on `brew update` and
+`brew upgrade 0merUfuk/thematrix/rifja`. The old formula and command remain aliases.
 Application state and backups survive uninstall. The project release procedure
 updates the formula from checksummed, attested GitHub release assets.
 
