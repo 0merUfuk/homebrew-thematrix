@@ -29,13 +29,14 @@ jobs:
           fi
           # Refresh the runner image's package manager before testing the public tap.
           brew update
-          brew tap 0merUfuk/thematrix
+          # Direct installation trusts only the requested formula and taps implicitly.
+          brew install --verbose 0merUfuk/thematrix/rifja
           # Test this checked-out formula, including pull-request changes.
           cp Formula/rifja.rb "$(brew --repository 0merUfuk/thematrix)/Formula/rifja.rb"
           cp formula_renames.json "$(brew --repository 0merUfuk/thematrix)/formula_renames.json"
           mkdir -p "$(brew --repository 0merUfuk/thematrix)/Aliases"
           ln -sfn ../Formula/rifja.rb "$(brew --repository 0merUfuk/thematrix)/Aliases/session-visualizer"
-          brew install --verbose 0merUfuk/thematrix/rifja
+          brew reinstall --verbose 0merUfuk/thematrix/rifja
           rifja --version
           test "$(session-visualizer --version)" = "$(rifja --version)"
           brew test 0merUfuk/thematrix/rifja
