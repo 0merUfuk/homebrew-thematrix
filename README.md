@@ -23,13 +23,49 @@ The four the-matrix formulae are updated via [GoReleaser](https://goreleaser.com
 
 ## Skuggsja
 
-[Skuggsja](https://github.com/0merUfuk/skuggsja) is a local, read-only retrospective for AI coding-agent history. The formula installs a prebuilt executable on macOS or Linux, for Intel/AMD and ARM64, with its UI and shell completions included. No Go, Python or Node.js runtime is needed.
+[Skuggsja](https://github.com/0merUfuk/skuggsja) has moved to its
+[dedicated Homebrew tap](https://github.com/0merUfuk/homebrew-skuggsja).
+New installations use:
 
 ```sh
-brew install 0merUfuk/thematrix/skuggsja
-skuggsja
+brew install 0merUfuk/skuggsja/skuggsja
 ```
 
-Update with `brew update` and `brew upgrade 0merUfuk/thematrix/skuggsja`; remove with `brew uninstall 0merUfuk/thematrix/skuggsja`. Uninstall leaves generated reports in place. See the [project documentation](https://github.com/0merUfuk/skuggsja#readme) for usage, source coverage and privacy boundaries.
+For existing installations, prepare the destination before updating:
 
-The Skuggsja update workflow checks daily or on manual dispatch, verifies the release formula's GitHub attestation and source tag, and refuses version rollback. It uses this tap's own workflow token; no cross-repository secret is required. Existing formulas retain their release process.
+```sh
+brew trust --formula 0merUfuk/skuggsja/skuggsja
+brew tap 0merUfuk/skuggsja
+brew update
+```
+
+Check every installed receipt, including retained older kegs:
+
+```sh
+for receipt in "$(brew --cellar skuggsja)"/*/INSTALL_RECEIPT.json; do
+  printf '%s\n' "$receipt"
+  cat "$receipt"
+done
+```
+
+Each receipt's `source.tap` should be `0merufuk/skuggsja`. Automatic same-version
+migration preserves binaries and pins. If an earlier update already processed
+the move while the destination was unavailable, qualified reinstall alone can
+retain the former tap through Homebrew's receipt cache. Recover without uninstall:
+
+```sh
+brew trust --command 0merUfuk/skuggsja/skuggsja-migrate
+HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_FROM_API=1 HOMEBREW_NO_ANALYTICS=1 \
+  brew skuggsja-migrate --check
+HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_FROM_API=1 HOMEBREW_NO_ANALYTICS=1 \
+  brew skuggsja-migrate --apply
+```
+
+The dedicated command verifies known original release binaries, backs up affected
+receipts and changes only their tap association. It preserves retained kegs,
+pins, completions and reports; it does not read harness histories. Check its
+reported result rather than assuming an exit code proves migration.
+
+Keep The Matrix tap for its other tools. Do not force-untap it or silently unpin
+Skuggsja. See the [project migration guide](https://github.com/0merUfuk/skuggsja#existing-the-matrix-tap-installations)
+for the supported legacy versions and details of this one-time recovery.
