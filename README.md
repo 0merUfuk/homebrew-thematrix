@@ -54,16 +54,15 @@ New installations use:
 brew install 0merUfuk/skuggsja/skuggsja
 ```
 
-Trust the destination formula and add its tap before updating, so Homebrew can use it when processing the old tap's migration entry:
+For existing installations, prepare the destination before updating:
 
 ```sh
 brew trust --formula 0merUfuk/skuggsja/skuggsja
 brew tap 0merUfuk/skuggsja
 brew update
-skuggsja version
 ```
 
-Inspect every installed receipt, including any retained older kegs:
+Check every installed receipt, including retained older kegs:
 
 ```sh
 for receipt in "$(brew --cellar skuggsja)"/*/INSTALL_RECEIPT.json; do
@@ -72,17 +71,24 @@ for receipt in "$(brew --cellar skuggsja)"/*/INSTALL_RECEIPT.json; do
 done
 ```
 
-Each receipt's `source.tap` should be `0merufuk/skuggsja` before calling the whole installation migrated. The automatic same-version path updates all retained keg receipts without replacing their binaries or clearing a pin. It may not run again if an earlier update already processed the move while the destination was unavailable.
-
-If the current keg's receipt still names the old tap, check `brew list --pinned`. Homebrew skips a pinned reinstall; preserve the pin unless you deliberately choose to unpin it. For an unpinned installation, recover with:
+Each receipt's `source.tap` should be `0merufuk/skuggsja`. Automatic same-version
+migration preserves binaries and pins. If an earlier update already processed
+the move while the destination was unavailable, qualified reinstall alone can
+retain the former tap through Homebrew's receipt cache. Recover without uninstall:
 
 ```sh
-brew reinstall 0merUfuk/skuggsja/skuggsja
-skuggsja version
+brew trust --command 0merUfuk/skuggsja/skuggsja-migrate
+HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_FROM_API=1 HOMEBREW_NO_ANALYTICS=1 \
+  brew skuggsja-migrate --check
+HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_FROM_API=1 HOMEBREW_NO_ANALYTICS=1 \
+  brew skuggsja-migrate --apply
 ```
 
-Then repeat the receipt check. Reinstall selects the destination tap's current version; retained older receipts may still name their historical tap, so a successful reinstall does not prove every keg migrated. `brew trust` applies to Homebrew versions with tap trust; follow your installed version's instructions. These steps preserve Skuggsja's generated report and source histories. Keep The Matrix tap if you use its other tools.
+The dedicated command verifies known original release binaries, backs up affected
+receipts and changes only their tap association. It preserves retained kegs,
+pins, completions and reports; it does not read harness histories. Check its
+reported result rather than assuming an exit code proves migration.
 
-No uninstall is needed first; do not force-untap The Matrix. See the
-[project migration guide](https://github.com/0merUfuk/skuggsja#existing-the-matrix-tap-installations)
-for the current instructions.
+Keep The Matrix tap for its other tools. Do not force-untap it or silently unpin
+Skuggsja. See the [project migration guide](https://github.com/0merUfuk/skuggsja#existing-the-matrix-tap-installations)
+for the supported legacy versions and details of this one-time recovery.
