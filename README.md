@@ -20,7 +20,6 @@ brew install neo morp oracle trinity
 
 The four the-matrix formulae are updated via [GoReleaser](https://goreleaser.com).
 
-
 ## Skuggsja
 
 [Skuggsja](https://github.com/0merUfuk/skuggsja) has moved to its
